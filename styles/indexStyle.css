@@ -63,6 +63,14 @@ li{
     margin: 2%;
     height: 200px;
     width: 200px;
+    border-radius: 16px;
+}
+
+li:hover{
+    transform: scale(102%);
+    transition: 0.2s;
+    box-shadow: 5px 5px 25px var(--color-black);
+    cursor: pointer;
 }
 
 li div{
