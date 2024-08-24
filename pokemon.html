@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex 2000</title>
-    <link rel="stylesheet" href="styles/indexStyle.css">
+    <link rel="stylesheet" href="styles/pokemonStyle.css">
 </head>
 <body>
     
@@ -15,7 +15,7 @@
             </svg>
         </div>
         <div>
-            <img src="imagens/pokedex2000.png" height="65vh">
+            <img id="pokedex2000-logo" src="imagens/pokedex2000.png" height="65vh">
         </div>
         <div class="icon-user d-flex">
             <p>User</p>
@@ -25,11 +25,29 @@
         </div>
     </header>
     <main class="d-flex">
-        <section>
-            
+        <section class="d-flex">
+            <div class="pokemon-info d-flex">
+                <img src="imagens/charizard.jpg">
+                <p>Charizard</p>
+                <p>Species</p>
+                <button>Save to Pokedex</button>
+                <ul class="d-flex pokemon-ul-container">
+                    <li class="pokemon-li-container">
+                        <h2>Title:</h2>
+                        <ul>
+                            <li class="pokemon-li-param">
+                                Param: 123
+                            </li>
+                            <li class="pokemon-li-param">
+                                Param: 321
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </section>
     </main>
 
-    <script src="scripts/indexScript.js"></script>
+    <script src="scripts/pokemonScript.js"></script>
 </body>
 </html>

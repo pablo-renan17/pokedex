@@ -3,6 +3,14 @@ header = {
     'Content-Type': 'application/json'
 };
 
+function eventoDeCliquePokedexLogo(){
+    const pokedexIcon = document.querySelector("#pokedex2000-logo");
+    pokedexIcon.addEventListener("click",()=>{
+        window.location.href = "index.html"
+    })
+}
+eventoDeCliquePokedexLogo();
+
 async function pegarTodosPokemons(){
     const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150",{
         headers: header
@@ -16,12 +24,11 @@ async function pegarPokemonImagem(nomePokemon){
         headers: header
     });
     let result = await response.json();
-    result = result.sprites.front_default;
     return result;
 }
 
 function adicionarPokemonLocalStorage(pokemon){
-    localStorage.setItem("pokemonId", pokemon);
+    localStorage.setItem("pokemon", pokemon);
 }
 
 function mudarParaPaginaPokemon(){
@@ -31,13 +38,13 @@ function mudarParaPaginaPokemon(){
 async function montarPokemons(listaPokemon){
 
     for(let pokemon of listaPokemon){
-        const imagemPokemon = await pegarPokemonImagem(pokemon.name);
+        const pokemonInfo = await pegarPokemonImagem(pokemon.name);
 
         const ulPokemons = document.querySelector("ul");
         ulPokemons.insertAdjacentHTML("beforeend",`
         <li class="li-${pokemon.name}">
             <div>
-                <img src="${imagemPokemon}">
+                <img src="${pokemonInfo.sprites.front_default}">
             </div>
             <p>
                 ${pokemon.name}
@@ -46,7 +53,7 @@ async function montarPokemons(listaPokemon){
         `);
         const ulPokemon = document.querySelector(`.li-${pokemon.name}`);
         ulPokemon.addEventListener("click",()=>{
-            adicionarPokemonLocalStorage(pokemon.name);
+            adicionarPokemonLocalStorage(JSON.stringify(pokemonInfo));
             mudarParaPaginaPokemon();
         });
     }

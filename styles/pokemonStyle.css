@@ -9,8 +9,9 @@
 
 :root{
     --color-black: #202020;
-    --color-yellow:  #f5f500;
+    --color-yellow: #f5f500;
     --color-white: #ebebeb;
+    --color-grey: #c7c7c7;
 }
 
 ul{
@@ -51,7 +52,7 @@ main{
     justify-content: center;
 }
 
-ul{
+section{
     height: 86vh;
     width: 900px;
     background-color: var(--color-white);
@@ -63,21 +64,67 @@ ul{
     overflow: auto;
 }
 
-li{
-    display: flex;
+.pokemon-info{
+    min-height: 94%;
+    width: 600px;
+    background-color: var(--color-grey);
+    border-radius: 16px;
+    margin: 2% 10% 2% 10%;
     flex-direction: column;
-    justify-content: center;
-    margin: 2%;
-    height: 200px;
-    width: 200px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.pokemon-info img{
+    margin: 5% 5% 5% 5%;
+    height: 32vh;
+    width: 32vh;
     border-radius: 16px;
 }
 
-li:hover{
+.pokemon-info p{
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.pokemon-info button{
+    font-size: 16px;
+    margin-bottom: 16px;
+    padding: 1% 2% 1% 2%;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.pokemon-info button:hover{
     transform: scale(102%);
     transition: 0.2s;
-    box-shadow: 5px 5px 25px var(--color-black);
-    cursor: pointer;
+}
+
+.pokemon-info button:active{
+    transform: scale(98%);
+    transition: 0.2s;
+}
+
+.pokemon-ul-container{
+    width: 100%;
+}
+
+.pokemon-li-container{
+    width: 100%;
+    border: 2px solid var(--color-black);
+    margin: 0 5% 5% 5%;
+    padding: 2%;
+    border-radius: 8px;
+}
+
+.pokemon-li-container:hover{
+    transform: scale(100.5%);
+    transition: 0.2s;
+}
+
+.pokemon-li-param{
+    list-style-type: circle;
+    list-style-position: inside;
 }
 
 li div{
