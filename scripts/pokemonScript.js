@@ -28,25 +28,55 @@ function montarPokemonMainInfo(pokemonInfo){
 
 function montarPokemonParamsLi(pokemonInfo){
     const ulPokemonInfo = document.querySelector(".pokemon-ul-container");
-    ulPokemonInfo.insertAdjacentHTML("beforebegin",`
-          <li class="pokemon-li-container">
-                <h2>Types:</h2>
-                <ul id="sub-ul-types">
-                    
-                </ul>
-            </li>
+    ulPokemonInfo.insertAdjacentHTML("beforeend",`
+        <li class="pokemon-li-container">
+            <h2>Types:</h2>
+            <ul id="sub-ul-types">
+                
+            </ul>
+        </li>
+        <li class="pokemon-li-container">
+            <h2>Abilites:</h2>
+            <ul id="sub-ul-abilities">
+                
+            </ul>
+        </li>
         `);
-        pokemonInfo.types.forEach(typeArray => {
+        pokemonInfo.types.forEach(pokInfo => {
             const subUlTypes = document.querySelector("#sub-ul-types");
             subUlTypes.insertAdjacentHTML("beforeend",`
                 <li class="pokemon-li-param">
-                ${typeArray.type.name}
+                ${pokInfo.type.name}
                 </li>
                 `)
         });
+        pokemonInfo.abilities.forEach(pokInfo => {
+            const subUlTypes = document.querySelector("#sub-ul-abilities");
+            subUlTypes.insertAdjacentHTML("beforeend",`
+                <li class="pokemon-li-param">
+                ${pokInfo.ability.name}
+                </li>
+                `)
+        });
+        montarPokemonStats(pokemonInfo);
 }
 
-function montarPokemonsSubUlLi(){
-    const subUl = document.querySelector("#sub-ul");
-    subUl
+function montarPokemonStats(pokemonInfo){
+    const divPokemonInfo = document.querySelector(".pokemon-info");
+    divPokemonInfo.insertAdjacentHTML("beforeend",`
+        <div class="pokemon-li-container">
+            <h2>Stats:</h2>
+            <ul id="sub-ul-stats">
+                
+            </ul>
+        </div>
+        `);
+    pokemonInfo.stats.forEach((pokInfo)=>{
+        const subUlStats = document.querySelector("#sub-ul-stats");
+        subUlStats.insertAdjacentHTML("beforeend",`
+            <li class="pokemon-li-param">
+                ${pokInfo.stat.name}: ${pokInfo.base_stat}
+            </li>
+            `);
+    })
 }
