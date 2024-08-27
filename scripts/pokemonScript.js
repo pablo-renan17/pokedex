@@ -1,17 +1,14 @@
-function eventoDeCliquePokedexLogo(){
+function adicionarEventoCliqueLogo(){
     const pokedexIcon = document.querySelector("#pokedex2000-logo");
     pokedexIcon.addEventListener("click",()=>{
         window.location.href = "index.html"
-    })
+    });
 }
-eventoDeCliquePokedexLogo();
 
-function pegarPokemon(){
+function recuperarPokemon(){
     const pokemonInfo = JSON.parse(localStorage.getItem("pokemon"));
-    console.log(pokemonInfo);
     montarPokemonMainInfo(pokemonInfo);
 }
-pegarPokemon();
 
 function montarPokemonMainInfo(pokemonInfo){
     const divPokemonInfo = document.querySelector(".pokemon-info");
@@ -22,11 +19,11 @@ function montarPokemonMainInfo(pokemonInfo){
         <button>Save to Pokedex</button>
         <ul class="d-flex pokemon-ul-container">
         </ul>
-        `)
-    montarPokemonParamsLi(pokemonInfo);
+        `);
+    montarPokemonParametros(pokemonInfo);
 }
 
-function montarPokemonParamsLi(pokemonInfo){
+function montarPokemonParametros(pokemonInfo){
     const ulPokemonInfo = document.querySelector(".pokemon-ul-container");
     ulPokemonInfo.insertAdjacentHTML("beforeend",`
         <li class="pokemon-li-container">
@@ -42,26 +39,34 @@ function montarPokemonParamsLi(pokemonInfo){
             </ul>
         </li>
         `);
-        pokemonInfo.types.forEach(pokInfo => {
-            const subUlTypes = document.querySelector("#sub-ul-types");
-            subUlTypes.insertAdjacentHTML("beforeend",`
-                <li class="pokemon-li-param">
-                ${pokInfo.type.name}
-                </li>
-                `)
-        });
-        pokemonInfo.abilities.forEach(pokInfo => {
-            const subUlTypes = document.querySelector("#sub-ul-abilities");
-            subUlTypes.insertAdjacentHTML("beforeend",`
-                <li class="pokemon-li-param">
-                ${pokInfo.ability.name}
-                </li>
-                `)
-        });
-        montarPokemonStats(pokemonInfo);
+        preencherTipos(pokemonInfo.types);
+        preencherHabilidades(pokemonInfo.abilities);
+        montarPokemonStatos(pokemonInfo.stats);
 }
 
-function montarPokemonStats(pokemonInfo){
+function preencherTipos(tipos){
+    tipos.forEach(tipo => {
+        const subUlTypes = document.querySelector("#sub-ul-types");
+        subUlTypes.insertAdjacentHTML("beforeend",`
+            <li class="pokemon-li-param">
+            ${tipo.type.name}
+            </li>
+            `);
+    });
+}
+
+function preencherHabilidades(habilidades){
+    habilidades.forEach(habilidade => {
+        const subUlTypes = document.querySelector("#sub-ul-abilities");
+        subUlTypes.insertAdjacentHTML("beforeend",`
+            <li class="pokemon-li-param">
+            ${habilidade.ability.name}
+            </li>
+            `);
+    });
+}
+
+function montarPokemonStatos(statos){
     const divPokemonInfo = document.querySelector(".pokemon-info");
     divPokemonInfo.insertAdjacentHTML("beforeend",`
         <div class="pokemon-li-container">
@@ -71,12 +76,19 @@ function montarPokemonStats(pokemonInfo){
             </ul>
         </div>
         `);
-    pokemonInfo.stats.forEach((pokInfo)=>{
+    preencherPokemonStatos(statos);
+}
+
+function preencherPokemonStatos(statos){
+    statos.forEach((stato)=>{
         const subUlStats = document.querySelector("#sub-ul-stats");
         subUlStats.insertAdjacentHTML("beforeend",`
             <li class="pokemon-li-param">
-                ${pokInfo.stat.name}: ${pokInfo.base_stat}
+                ${stato.stat.name}: ${stato.base_stat}
             </li>
             `);
-    })
+    });
 }
+
+adicionarEventoCliqueLogo();
+recuperarPokemon();
