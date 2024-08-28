@@ -60,12 +60,13 @@ async function montarPokemons(listaPokemon) {
 
     for (let pokemon of listaPokemon) {
         const pokemonDetalhes = await pegarPokemonDetalhes(pokemon.name);
+        const pokemonName = capitalizarPrimeiraLetra(pokemon.name);
         const liTemplate = `
             <li class="li-${pokemonDetalhes.name}" style="background-color: ${colors[pokemonDetalhes.types[0].type.name]}">
                 <div>
-                    <img src="${pokemonDetalhes.sprites.front_default}" alt="${pokemonDetalhes.name}">
+                    <img src="${pokemonDetalhes.sprites.front_default}" alt="${pokemonName}">
                 </div>
-                <p>${pokemonDetalhes.name}</p>
+                <p>${pokemonName}</p>
             </li>
         `;
         ulPokemons.insertAdjacentHTML("beforeend", liTemplate);
@@ -79,6 +80,11 @@ function adicionarEventoCliquePokemon(pokemonDetalhes){
             adicionarPokemonLocalStorage(JSON.stringify(pokemonDetalhes));
             mudarParaPaginaPokemon();
     });
+}
+
+function capitalizarPrimeiraLetra(pokemonName){
+    let string = palavraPrimeiraLetraCapitalizada = pokemonName[0].toUpperCase() + pokemonName.slice(1)
+    return palavraPrimeiraLetraCapitalizada
 }
 
 adicionarEventoCliqueLogo();
