@@ -12,9 +12,10 @@ function recuperarPokemon(){
 
 function montarPokemonMainInfo(pokemonInfo){
     const divPokemonInfo = document.querySelector(".pokemon-info");
+    const pokemonName = capitalizarPrimeiraLetra(pokemonInfo.name);
     divPokemonInfo.insertAdjacentHTML("beforeend",`
         <img src="${pokemonInfo.sprites.front_default}">
-        <p>${pokemonInfo.name}</p>
+        <p>${pokemonName}</p>
         <p>${pokemonInfo.species.name}</p>
         <button>Save to Pokedex</button>
         <ul class="d-flex pokemon-ul-container">
@@ -88,6 +89,11 @@ function preencherPokemonStatos(statos){
             </li>
             `);
     });
+}
+
+function capitalizarPrimeiraLetra(pokemonName){
+    let palavraPrimeiraLetraCapitalizada = pokemonName[0].toUpperCase() + pokemonName.slice(1)
+    return palavraPrimeiraLetraCapitalizada
 }
 
 adicionarEventoCliqueLogo();

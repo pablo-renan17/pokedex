@@ -83,7 +83,7 @@ function adicionarEventoCliquePokemon(pokemonDetalhes){
 }
 
 function capitalizarPrimeiraLetra(pokemonName){
-    let string = palavraPrimeiraLetraCapitalizada = pokemonName[0].toUpperCase() + pokemonName.slice(1)
+    let palavraPrimeiraLetraCapitalizada = pokemonName[0].toUpperCase() + pokemonName.slice(1)
     return palavraPrimeiraLetraCapitalizada
 }
 
