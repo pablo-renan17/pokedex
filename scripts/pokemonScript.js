@@ -1,7 +1,7 @@
 function adicionarEventoCliqueLogo(){
     const pokedexIcon = document.querySelector("#pokedex2000-logo");
     pokedexIcon.addEventListener("click",()=>{
-        window.location.href = "index.html"
+        window.location.href = "/index.html";
     });
 }
 

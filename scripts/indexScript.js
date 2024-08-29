@@ -52,7 +52,7 @@ function adicionarPokemonLocalStorage(pokemon){
 }
 
 function mudarParaPaginaPokemon(){
-    window.location.href = "pokemon.html";
+    window.location.href = "./html/pokemon.html";
 }
 
 async function montarPokemons(listaPokemon) {
