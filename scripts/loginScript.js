@@ -44,7 +44,8 @@ async function verificarSeUsuarioExiste(emailUser, senhaUser){
                 password: senhaUser
             })
         });
-        console.log(verificarUsuario);
+        const result = await verificarUsuario.json();
+        console.log(result);
     } catch (error) {
         console.log(error)
     }
