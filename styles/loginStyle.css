@@ -100,13 +100,13 @@ form button:hover{
     transition: 0.2s;
     box-shadow: 5px 5px 25px var(--color-black);
     cursor: pointer;
+    text-decoration: underline;
 }
 
 form button:active{
     transform: scale(98%);
     transition: 0.2s;
     box-shadow: 5px 5px 10px var(--color-black);
-    cursor: pointer;
 }
 
 footer{
@@ -122,4 +122,5 @@ footer a{
 
 footer a:hover{
     cursor: pointer;
+    text-decoration: underline;
 }

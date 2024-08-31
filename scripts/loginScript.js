@@ -35,20 +35,35 @@ function adicionarEventoSubmitForm(){
 }
 
 async function verificarSeUsuarioExiste(emailUser, senhaUser){
-    try {
-        const verificarUsuario = await fetch(`http://localhost:3001/login/`,{
-            method: "POST",
-            headers: header,
-            body: JSON.stringify({
-                email: emailUser,
-                password: senhaUser
-            })
-        });
+    const verificarUsuario = await fetch(`http://localhost:3001/login/`,{
+        method: "POST",
+        headers: header,
+        body: JSON.stringify({
+            email: emailUser,
+            password: senhaUser
+        })
+    });
+    if(verificarUsuario.status === 400){
+        console.log("Erro")
+        return
+    }else{
         const result = await verificarUsuario.json();
         console.log(result);
-    } catch (error) {
-        console.log(error)
+        adicionarTokenEIdLocalStorage(result.accessToken, result.user.id);
+        redirecionarParaPokedex();
     }
+}
+
+function adicionarTokenEIdLocalStorage(token, id){
+    let userIdEToken = {
+        "userToken": token,
+        "userId": id
+    }
+    localStorage.setItem("userInfo", JSON.stringify(userIdEToken));
+}
+
+function redirecionarParaPokedex(){
+    window.location.href = "http://127.0.0.1:5500/index.html";
 }
 
 adicionarEventoCliqueBtnCadastrar();

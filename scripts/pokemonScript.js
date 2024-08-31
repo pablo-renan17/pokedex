@@ -1,8 +1,41 @@
+const header = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+};
+
 function adicionarEventoCliqueLogo(){
     const pokedexIcon = document.querySelector("#pokedex2000-logo");
     pokedexIcon.addEventListener("click",()=>{
         window.location.href = "/index.html";
     });
+}
+
+async function verificarSeUsuarioEstaLogado(){
+    try {
+        const userInfoRaw = localStorage.getItem("userInfo");
+        const userTokenEId = JSON.parse(userInfoRaw);
+        console.log(userTokenEId);
+        const emailUser = await pegarEmailUser(userTokenEId);
+        ajustarNomeDeUsuario(emailUser);
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function ajustarNomeDeUsuario(emailUser){
+    const userNameP = document.querySelector("#user-name");
+    userNameP.innerHTML = emailUser;
+}
+
+async function pegarEmailUser(userTokenEId){
+    const userInfoRaw = await fetch(`http://localhost:3001/users/${userTokenEId.userId}`,{
+        method: 'GET', 
+        headers: {...header, 'Authorization': `Bearer ${userTokenEId.userToken}`}
+    });
+    const userInfo = await userInfoRaw.json();
+    console.log(userInfo);  
+
+    return userInfo.email;
 }
 
 function recuperarPokemon(){
@@ -96,5 +129,6 @@ function capitalizarPrimeiraLetra(pokemonName){
     return palavraPrimeiraLetraCapitalizada
 }
 
+verificarSeUsuarioEstaLogado();
 adicionarEventoCliqueLogo();
 recuperarPokemon();

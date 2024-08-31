@@ -33,6 +33,11 @@ header img:hover{
     transition: 0.2s;
 }
 
+header div p{
+    display: flex;
+    align-items: center;
+}
+
 .icon-menu{
     padding-left: 2%;
 }
@@ -41,9 +46,14 @@ header img:hover{
     padding-right: 2%;
 }
 
+.container-pokedex2000-logo{
+    height: 100%;
+}
+
 #pokedex2000-logo{
     cursor: pointer;
-    height: 9vh;
+    height: 100%;
+    width: 100%;
 }
 
 main{
@@ -72,6 +82,7 @@ li{
     height: 30%;
     width: 25%;
     border-radius: 16px;
+    position: relative;
 }
 
 li:hover{
@@ -95,3 +106,10 @@ li img{
     height: 100%;
     width: 50%;
 }
+
+.icon-add{
+    position: absolute;
+    top: 22vh;
+    left: 5%; 
+}
+    
