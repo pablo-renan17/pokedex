@@ -119,6 +119,7 @@ async function adicionarPokemonPokedexPost(userId, pokemonName){
     })
     const adiconarPokedex = await adicionarPokedexRaw.json();
     console.log(adiconarPokedex)
+    window.location.reload();
 }
 
 async function adicionarPokemonPokedexPut(userId, pokemonName){
@@ -149,6 +150,7 @@ async function adicionarPokemonPokedexPut(userId, pokemonName){
     });
     const result = await response.json();
     console.log(result);
+    window.location.reload();
 }
 
 async function pegarPokemonsUsuarioEPrimaryKey(userId){
