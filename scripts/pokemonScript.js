@@ -67,9 +67,15 @@ function montarPokemonMainInfo(pokemonInfo){
 
 async function verificarSeUsuarioTemPokemon(pokemonName){
     const userTokenEId = await pegarTokenEId();
-    let {pokemonsAtualUsuario, userPrimaryKey} = await pegarPokemonsUsuarioEPrimaryKey(userTokenEId.userId);
-    if(pokemonsAtualUsuario.includes(pokemonName)){
-        adicionarBotaoRemoverPokedex(pokemonName);
+    try {
+        let {pokemonsAtualUsuario, userPrimaryKey} = await pegarPokemonsUsuarioEPrimaryKey(userTokenEId.userId);
+        pokemonsAtualUsuario = JSON.parse(pokemonsAtualUsuario);
+
+        if(pokemonsAtualUsuario.includes(pokemonName)){
+            adicionarBotaoRemoverPokedex(pokemonName);
+        }
+    } catch (error) {
+        
     }
 }
 
@@ -91,19 +97,17 @@ function adicionarEventoBotaoRemoverPokedex(pokemonName){
 
 async function removerPokemonPokedex(pokemonName){
     const userTokenEId = await pegarTokenEId();
-    let {pokemonsAtualUsuario, userPrimaryKey} = await pegarPokemonsUsuarioEPrimaryKey(userTokenEId.userId);
+    
     try {
+        let {pokemonsAtualUsuario, userPrimaryKey} = await pegarPokemonsUsuarioEPrimaryKey(userTokenEId.userId);
         pokemonsAtualUsuario = JSON.parse(pokemonsAtualUsuario);
+        const pokemonUsuarioRemoved = pokemonsAtualUsuario.filter((pokemon)=> pokemonName !== pokemon);
+
+        adicionarPokemonPokedexPut(userTokenEId.userId, userPrimaryKey, pokemonUsuarioRemoved);
+        window.location.reload();
     } catch (error) {
-
+        return("erro fatal")
     }
-    console.log(pokemonsAtualUsuario,"antes")
-    console.log(pokemonName,"pokemon escolhido")
-    const pokemonUsuarioRemoved = pokemonsAtualUsuario.filter((pokemon)=> pokemonName !== pokemon);
-    console.log(pokemonUsuarioRemoved,"depois");
-
-    adicionarPokemonPokedexPut(userTokenEId.userId, userPrimaryKey, pokemonUsuarioRemoved)
-    window.location.reload();
 }
 
 function removerBotaoSavePokedex(pokemonName){
@@ -144,24 +148,20 @@ async function verificarSeUsuarioTemPokedex(pokemonName){
 }
 
 async function criarArrayDeNovoPokemonsEPegarPrimaryKey(userId, pokemonName){
-    let {pokemonsAtualUsuario, userPrimaryKey} = await pegarPokemonsUsuarioEPrimaryKey(userId);
-
     try {
+        let {pokemonsAtualUsuario, userPrimaryKey} = await pegarPokemonsUsuarioEPrimaryKey(userId);
         pokemonsAtualUsuario = JSON.parse(pokemonsAtualUsuario);
+        if(pokemonsAtualUsuario.includes(pokemonName)){
+            console.log("Usuario ja tem esse pokemon!");
+            return
+        }
+    
+        pokemonsAtualUsuario.push(pokemonName);
+    
+        return {pokemonsAtualUsuario, userPrimaryKey};
     } catch (error) {
-
-    }
-    
-    console.log(pokemonsAtualUsuario)
-    
-    if(pokemonsAtualUsuario.includes(pokemonName)){
-        console.log("Usuario ja tem esse pokemon!");
-        return
-    }
-
-    pokemonsAtualUsuario.push(pokemonName);
-
-    return {pokemonsAtualUsuario, userPrimaryKey};
+        console.log("erro fatal.", error)
+    }   
 }
 
 async function adicionarPokemonPokedexPost(userId, pokemonName){
@@ -169,7 +169,7 @@ async function adicionarPokemonPokedexPost(userId, pokemonName){
         method: "POST",
         headers: header,
         body: JSON.stringify({
-            "pokemon": [pokemonName],
+            "pokemon": JSON.stringify([pokemonName]),
             "userId": userId
         })
     })
