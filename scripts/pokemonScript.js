@@ -73,6 +73,9 @@ async function verificarSeUsuarioTemPokemon(pokemonName){
         containerButton.insertAdjacentHTML("beforeend",`
             <button id="btn-remover-${pokemonName}">Remove from Pokedex</button>
             `)
+
+            const adicionarButton = document.querySelector(`#btn-${pokemonName}`);
+            adicionarButton.remove();
     }
 }
 
