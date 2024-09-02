@@ -69,14 +69,46 @@ async function verificarSeUsuarioTemPokemon(pokemonName){
     const userTokenEId = await pegarTokenEId();
     let {pokemonsAtualUsuario, userPrimaryKey} = await pegarPokemonsUsuarioEPrimaryKey(userTokenEId.userId);
     if(pokemonsAtualUsuario.includes(pokemonName)){
-        const containerButton = document.querySelector(".container-button");
-        containerButton.insertAdjacentHTML("beforeend",`
-            <button id="btn-remover-${pokemonName}">Remove from Pokedex</button>
-            `)
-
-            const adicionarButton = document.querySelector(`#btn-${pokemonName}`);
-            adicionarButton.remove();
+        adicionarBotaoRemoverPokedex(pokemonName);
     }
+}
+
+function adicionarBotaoRemoverPokedex(pokemonName){
+    const containerButton = document.querySelector(".container-button");
+    const botaoRemoverPokemon = `<button id="btn-remover-${pokemonName}">Remove from Pokedex</button>`;
+    containerButton.insertAdjacentHTML("beforeend",botaoRemoverPokemon);
+
+    adicionarEventoBotaoRemoverPokedex(pokemonName);
+    removerBotaoSavePokedex(pokemonName);
+}
+
+function adicionarEventoBotaoRemoverPokedex(pokemonName){
+    const botaoRemoverPokemon = document.querySelector(`#btn-remover-${pokemonName}`);
+    botaoRemoverPokemon.addEventListener("click",()=>{
+        removerPokemonPokedex(pokemonName);
+    });
+}
+
+async function removerPokemonPokedex(pokemonName){
+    const userTokenEId = await pegarTokenEId();
+    let {pokemonsAtualUsuario, userPrimaryKey} = await pegarPokemonsUsuarioEPrimaryKey(userTokenEId.userId);
+    try {
+        pokemonsAtualUsuario = JSON.parse(pokemonsAtualUsuario);
+    } catch (error) {
+
+    }
+    console.log(pokemonsAtualUsuario,"antes")
+    console.log(pokemonName,"pokemon escolhido")
+    const pokemonUsuarioRemoved = pokemonsAtualUsuario.filter((pokemon)=> pokemonName !== pokemon);
+    console.log(pokemonUsuarioRemoved,"depois");
+
+    adicionarPokemonPokedexPut(userTokenEId.userId, userPrimaryKey, pokemonUsuarioRemoved)
+    window.location.reload();
+}
+
+function removerBotaoSavePokedex(pokemonName){
+    const adicionarButton = document.querySelector(`#btn-${pokemonName}`);
+    adicionarButton.remove();
 }
 
 function adicionarEventoBotaoSavePokedex(pokemonName){
@@ -104,8 +136,32 @@ async function verificarSeUsuarioTemPokedex(pokemonName){
         adicionarPokemonPokedexPost(userTokenEId.userId, pokemonName);
     }else{
         console.log("Usuario possui pokemons cadastrados");
-        adicionarPokemonPokedexPut(userTokenEId.userId, pokemonName);
+        
+        const {pokemonsAtualUsuario, userPrimaryKey} = await criarArrayDeNovoPokemonsEPegarPrimaryKey(userTokenEId.userId, pokemonName);
+
+        adicionarPokemonPokedexPut(userTokenEId.userId, userPrimaryKey, pokemonsAtualUsuario);
     }
+}
+
+async function criarArrayDeNovoPokemonsEPegarPrimaryKey(userId, pokemonName){
+    let {pokemonsAtualUsuario, userPrimaryKey} = await pegarPokemonsUsuarioEPrimaryKey(userId);
+
+    try {
+        pokemonsAtualUsuario = JSON.parse(pokemonsAtualUsuario);
+    } catch (error) {
+
+    }
+    
+    console.log(pokemonsAtualUsuario)
+    
+    if(pokemonsAtualUsuario.includes(pokemonName)){
+        console.log("Usuario ja tem esse pokemon!");
+        return
+    }
+
+    pokemonsAtualUsuario.push(pokemonName);
+
+    return {pokemonsAtualUsuario, userPrimaryKey};
 }
 
 async function adicionarPokemonPokedexPost(userId, pokemonName){
@@ -122,24 +178,8 @@ async function adicionarPokemonPokedexPost(userId, pokemonName){
     window.location.reload();
 }
 
-async function adicionarPokemonPokedexPut(userId, pokemonName){
-    let {pokemonsAtualUsuario, userPrimaryKey} = await pegarPokemonsUsuarioEPrimaryKey(userId);
-
-    try {
-        pokemonsAtualUsuario = JSON.parse(pokemonsAtualUsuario);
-    } catch (error) {
-
-    }
-    
-    console.log(pokemonsAtualUsuario)
-
-    if(pokemonsAtualUsuario.includes(pokemonName)){
-        console.log("Usuario ja tem esse pokemon!");
-        return
-    }
-
-    pokemonsAtualUsuario.push(pokemonName);
-
+async function adicionarPokemonPokedexPut(userId, userPrimaryKey, pokemonsAtualUsuario){
+   
     const response = await fetch(`http://localhost:3001/pokedex/${userPrimaryKey}`,{
         method: "PUT",
         headers: header,
