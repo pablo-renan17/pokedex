@@ -9,9 +9,8 @@
 
 :root{
     --color-black: #202020;
-    --color-yellow: #f5f500;
+    --color-yellow:  #f5f500;
     --color-white: #ebebeb;
-    --color-grey: #c7c7c7;
 }
 
 ul{
@@ -47,9 +46,14 @@ header div p{
     padding-right: 2%;
 }
 
+.container-pokedex2000-logo{
+    height: 100%;
+}
+
 #pokedex2000-logo{
     cursor: pointer;
-    height: 9vh;
+    height: 100%;
+    width: 100%;
 }
 
 main{
@@ -58,7 +62,7 @@ main{
     justify-content: center;
 }
 
-section{
+ul{
     height: 86vh;
     width: 900px;
     background-color: var(--color-white);
@@ -70,72 +74,22 @@ section{
     overflow: auto;
 }
 
-.pokemon-info{
-    min-height: 94%;
-    width: 600px;
-    background-color: var(--color-grey);
-    border-radius: 16px;
-    margin: 2% 10% 2% 10%;
+li{
+    display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.pokemon-info img{
-    margin: 5% 5% 5% 5%;
-    height: 32vh;
-    width: 32vh;
+    justify-content: center;
+    margin: 2%;
+    height: 30%;
+    width: 25%;
     border-radius: 16px;
+    position: relative;
 }
 
-.pokemon-info p{
-    margin-bottom: 8px;
-    font-size: 20px;
-}
-
-.pokemon-info button{
-    font-size: 16px;
-    margin-bottom: 16px;
-    padding: 1% 2% 1% 2%;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.pokemon-info button:hover{
+li:hover{
     transform: scale(102%);
     transition: 0.2s;
-}
-
-.pokemon-info button:active{
-    transform: scale(98%);
-    transition: 0.2s;
-}
-
-.pokemon-info div{
-    width: 90%;
-    margin: 0 5% 5% 5%;
-}
-
-.pokemon-ul-container{
-    width: 100%;
-}
-
-.pokemon-li-container{
-    width: 100%;
-    border: 2px solid var(--color-black);
-    margin: 0 5% 5% 5%;
-    padding: 2%;
-    border-radius: 8px;
-}
-
-.pokemon-li-container:hover{
-    transform: scale(100.5%);
-    transition: 0.2s;
-}
-
-.pokemon-li-param{
-    list-style-type: circle;
-    list-style-position: inside;
+    box-shadow: 5px 5px 25px var(--color-black);
+    cursor: pointer;
 }
 
 li div{
@@ -148,13 +102,13 @@ li p{
     margin-top: 10%;
 }
 
-.container-button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+li img{
+    height: 100%;
+    width: 50%;
 }
 
-#icon-menu-svg{
-    cursor: pointer;
+.icon-add{
+    position: absolute;
+    top: 22vh;
+    left: 5%; 
 }

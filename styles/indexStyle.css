@@ -113,3 +113,6 @@ li img{
     left: 5%; 
 }
     
+#icon-menu-svg{
+    cursor: pointer;
+}
