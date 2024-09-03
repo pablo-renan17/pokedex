@@ -32,15 +32,13 @@ function adicionarEventoCliqueLogoMenu(){
 }
 
 async function verificarSeUsuarioEstaLogado(){
-    try {
-        const userInfoRaw = localStorage.getItem("userInfo");
-        const userTokenEId = JSON.parse(userInfoRaw);
-        console.log(userTokenEId);
-        const emailUser = await pegarEmailUser(userTokenEId);
-        ajustarNomeDeUsuario(emailUser);
-    } catch (error) {
-        console.log(error)
+   
+    const userTokenEId = await pegarTokenEId();
+    if(userTokenEId === null){
+        return false;
     }
+
+    return true;
 }
 
 async function pegarEmailUser(userTokenEId){
@@ -54,9 +52,15 @@ async function pegarEmailUser(userTokenEId){
     return userInfo.email;
 }
 
-function ajustarNomeDeUsuario(emailUser){
-    const userNameP = document.querySelector("#user-name");
-    userNameP.innerHTML = emailUser;
+async function ajustarNomeDeUsuario(){
+    const isUserLogado = await verificarSeUsuarioEstaLogado();
+
+    if(isUserLogado){
+        const userTokenEId = await pegarTokenEId();
+        const emailUser = await pegarEmailUser(userTokenEId);
+        const userNameP = document.querySelector("#user-name");
+        userNameP.innerHTML = emailUser;
+    }
 }
 
 function adicionarEventoCliqueLogo(){
@@ -126,7 +130,33 @@ function capitalizarPrimeiraLetra(pokemonName){
     return palavraPrimeiraLetraCapitalizada
 }
 
-verificarSeUsuarioEstaLogado()
+
+async function adicionarEventoCliqueDropdownEBtnSair(){
+   
+    document.getElementById("user-name").addEventListener("click", function() {
+        this.parentElement.classList.toggle('active');
+    });
+    const btnSairConta = document.querySelector("#btn-sair-conta");
+    btnSairConta.addEventListener("click", function() {
+        localStorage.removeItem("userInfo");
+        window.location.href = "http://127.0.0.1:5500/html/login.html";
+    })
+    const isUserLogado = await verificarSeUsuarioEstaLogado();
+
+    if(isUserLogado === false){
+        btnSairConta.innerHTML = "Logar";
+    }
+
+}
+
+async function pegarTokenEId(){
+    const userInfoRaw = localStorage.getItem("userInfo");
+    const userTokenEId = JSON.parse(userInfoRaw);
+    return userTokenEId;
+}
+
+adicionarEventoCliqueDropdownEBtnSair();
+ajustarNomeDeUsuario();
 adicionarEventoCliqueLogo();
 pegarTodosPokemons();
-adicionarEventoCliqueLogoMenu()
+adicionarEventoCliqueLogoMenu();

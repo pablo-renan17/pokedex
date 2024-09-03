@@ -42,10 +42,6 @@ header div p{
     padding-left: 2%;
 }
 
-.icon-user{
-    padding-right: 2%;
-}
-
 .container-pokedex2000-logo{
     height: 100%;
 }
@@ -111,4 +107,44 @@ li img{
     position: absolute;
     top: 22vh;
     left: 5%; 
+}
+
+.icon-user {
+    position: relative;
+    padding-right: 2%;
+}
+
+#user-name{
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 40%;
+    background-color: #333;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-menu button {
+    background: none;
+    border: none;
+    color: var(--color-white);
+    padding: 10px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+}
+
+.dropdown-menu button:hover {
+    background-color: #444;
+    color: var(--color-yellow);
+}
+
+.icon-user.active .dropdown-menu {
+    display: block;
 }

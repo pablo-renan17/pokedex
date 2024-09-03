@@ -32,21 +32,26 @@ function adicionarEventoCliqueLogo(){
 }
 
 async function verificarSeUsuarioEstaLogado(){
-    try {
-        const userInfoRaw = localStorage.getItem("userInfo");
-        const userTokenEId = JSON.parse(userInfoRaw);
-        console.log(userTokenEId, "user token e id");
+   
+    const userTokenEId = await pegarTokenEId();
+    if(userTokenEId === null){
+        return false;
+    }
+
+    return true;
+}
+
+async function ajustarNomeDeUsuario(){
+    const isUserLogado = await verificarSeUsuarioEstaLogado();
+
+    if(isUserLogado){
+        const userTokenEId = await pegarTokenEId();
         const emailUser = await pegarEmailUser(userTokenEId);
-        ajustarNomeDeUsuario(emailUser);
-    } catch (error) {
-        console.log(error)
+        const userNameP = document.querySelector("#user-name");
+        userNameP.innerHTML = emailUser;
     }
 }
 
-function ajustarNomeDeUsuario(emailUser){
-    const userNameP = document.querySelector("#user-name");
-    userNameP.innerHTML = emailUser;
-}
 
 async function pegarEmailUser(userTokenEId){
     const userInfoRaw = await fetch(`http://localhost:3001/users/${userTokenEId.userId}`,{
@@ -129,6 +134,25 @@ function capitalizarPrimeiraLetra(pokemonName){
     return palavraPrimeiraLetraCapitalizada
 }
 
+async function adicionarEventoCliqueDropdownEBtnSair(){
+   
+    document.getElementById("user-name").addEventListener("click", function() {
+        this.parentElement.classList.toggle('active');
+    });
+    const btnSairConta = document.querySelector("#btn-sair-conta");
+    btnSairConta.addEventListener("click", function() {
+        localStorage.removeItem("userInfo");
+        window.location.href = "http://127.0.0.1:5500/html/login.html";
+    })
+    const isUserLogado = await verificarSeUsuarioEstaLogado();
+
+    if(isUserLogado === false){
+        btnSairConta.innerHTML = "Logar";
+    }
+
+}
+
+adicionarEventoCliqueDropdownEBtnSair();
 pegarTodosPokemonsPokedexUser();
-verificarSeUsuarioEstaLogado();
+ajustarNomeDeUsuario();
 adicionarEventoCliqueLogo();
