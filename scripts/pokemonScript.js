@@ -120,9 +120,9 @@ function removerBotaoSavePokedex(pokemonName){
     adicionarButton.remove();
 }
 
-function adicionarEventoBotaoSavePokedex(pokemonName){
+async function adicionarEventoBotaoSavePokedex(pokemonName){
     const buttonSavePokedex = document.querySelector(`#btn-${pokemonName}`);
-    const isUserLogado = verificarSeUsuarioEstaLogado();
+    const isUserLogado = await verificarSeUsuarioEstaLogado();
 
     if(!isUserLogado){
         buttonSavePokedex.remove();
