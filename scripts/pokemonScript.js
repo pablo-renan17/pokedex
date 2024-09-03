@@ -124,7 +124,7 @@ function adicionarEventoBotaoSavePokedex(pokemonName){
     const buttonSavePokedex = document.querySelector(`#btn-${pokemonName}`);
     const isUserLogado = verificarSeUsuarioEstaLogado();
 
-    if(isUserLogado){
+    if(!isUserLogado){
         buttonSavePokedex.remove();
     }
 
@@ -164,7 +164,7 @@ async function criarArrayDeNovoPokemonsEPegarPrimaryKey(userId, pokemonName){
         pokemonsAtualUsuario = JSON.parse(pokemonsAtualUsuario);
         if(pokemonsAtualUsuario.includes(pokemonName)){
             console.log("Usuario ja tem esse pokemon!");
-            return
+            return {pokemonsAtualUsuario, userPrimaryKey};
         }
     
         pokemonsAtualUsuario.push(pokemonName);
@@ -295,7 +295,7 @@ async function adicionarEventoCliqueDropdownEBtnSair(){
     })
     const isUserLogado = await verificarSeUsuarioEstaLogado();
 
-    if(isUserLogado === false){
+    if(!isUserLogado){
         btnSairConta.innerHTML = "Logar";
     }
 }
