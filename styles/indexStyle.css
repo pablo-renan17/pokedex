@@ -11,6 +11,8 @@
   --color-black: #202020;
   --color-yellow: #f5f500;
   --color-white: #ebebeb;
+  --color-green: #29b329;
+  --color-red: #ff0000(201, 41, 41);
 }
 
 ul {
@@ -153,39 +155,4 @@ li img {
   display: block;
 }
 
-.modal-wrapper {
-  position: fixed;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.2);
-}
 
-.modal {
-  position: sticky;
-  background-color: white;
-  margin: 120%;
-}
-
-.modal-header {
-  background-color: red;
-  height: 5vh;
-  width: 20vh;
-  padding: 20%;
-}
-
-.modal-body {
-  background-color: white;
-  height: 5vh;
-  width: 20vh;
-  margin: 20%;
-}
-
-.modal-button {
-  position: absolute;
-  right: 0;
-  top: 0;
-}
