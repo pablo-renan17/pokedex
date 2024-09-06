@@ -48,6 +48,10 @@ header div p {
   width: 35vh;
 }
 
+.bi-person {
+  cursor: pointer;
+}
+
 #pokedex2000-logo {
   cursor: pointer;
   height: 100%;
@@ -118,10 +122,6 @@ li img {
 .icon-user {
   position: relative;
   padding-right: 2%;
-}
-
-#user-name {
-  cursor: pointer;
 }
 
 .dropdown-menu {
