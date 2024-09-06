@@ -45,7 +45,7 @@ header div p {
 }
 
 .container-pokedex2000-logo {
-  height: 100%;
+  width: 30vh;
 }
 
 #pokedex2000-logo {
@@ -155,4 +155,12 @@ li img {
   display: block;
 }
 
+@media (max-width: 390px) {
+  #user-name {
+    display: none;
+  }
 
+  .container-pokedex2000-logo {
+    width: 50%;
+  }
+}

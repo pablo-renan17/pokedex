@@ -1,109 +1,118 @@
 const header = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
+  Accept: "application/json",
+  "Content-Type": "application/json",
 };
 
 const colors = {
-    normal: "rgba(150, 150, 150, 0.2)",
-    grass: "rgba(108, 230, 44, 0.2)",
-    fire: "rgba(230, 130, 43, 0.2)",
-    poison: "rgba(150, 44, 230, 0.2)",
-    water: "rgba(44, 230, 208, 0.2)",
-    bug: "rgba(110, 41, 1, 0.2)",
-    electric: "rgba(255, 242, 0, 0.2)",
-    ground: "rgba(110, 79, 0, 0.2)",
-    fairy: "rgba(110, 0, 49, 0.2)",
-    fighting: "rgba(0, 10, 110, 0.2)",
-    psychic: "rgba(120, 0, 255, 0.2)",
-    rock: "rgba(0, 0, 0, 0.2)",
-    ghost: "rgba(61, 0, 255, 0.2)",
-    ice: "rgba(0, 255, 226, 0.2)",
-    dragon: "rgba(255, 0, 88, 0.2)",
-    dark: "rgba(0, 0, 0, 0.35)",
-    steel: "rgba(150, 149, 122, 0.35)",
-    flying: "rgba(122, 150, 127, 0.35)"
+  normal: "rgba(150, 150, 150, 0.2)",
+  grass: "rgba(108, 230, 44, 0.2)",
+  fire: "rgba(230, 130, 43, 0.2)",
+  poison: "rgba(150, 44, 230, 0.2)",
+  water: "rgba(44, 230, 208, 0.2)",
+  bug: "rgba(110, 41, 1, 0.2)",
+  electric: "rgba(255, 242, 0, 0.2)",
+  ground: "rgba(110, 79, 0, 0.2)",
+  fairy: "rgba(110, 0, 49, 0.2)",
+  fighting: "rgba(0, 10, 110, 0.2)",
+  psychic: "rgba(120, 0, 255, 0.2)",
+  rock: "rgba(0, 0, 0, 0.2)",
+  ghost: "rgba(61, 0, 255, 0.2)",
+  ice: "rgba(0, 255, 226, 0.2)",
+  dragon: "rgba(255, 0, 88, 0.2)",
+  dark: "rgba(0, 0, 0, 0.35)",
+  steel: "rgba(150, 149, 122, 0.35)",
+  flying: "rgba(122, 150, 127, 0.35)",
 };
 
-function adicionarEventoCliqueLogoMenu(){
-    const menuIcon = document.querySelector("#icon-menu-svg");
-    menuIcon.addEventListener("click",()=>{
-        window.location.href = "http://127.0.0.1:5500/html/pokedexUser.html";
-    })
+function adicionarEventoCliqueLogoMenu() {
+  const menuIcon = document.querySelector("#icon-menu-svg");
+  menuIcon.addEventListener("click", () => {
+    window.location.href = "http://127.0.0.1:5500/html/pokedexUser.html";
+  });
 }
 
-async function verificarSeUsuarioEstaLogado(){
-   
+async function verificarSeUsuarioEstaLogado() {
+  const userTokenEId = await pegarTokenEId();
+  if (userTokenEId === null) {
+    return false;
+  }
+
+  return true;
+}
+
+async function pegarEmailUser(userTokenEId) {
+  const userInfoRaw = await fetch(
+    `http://localhost:3001/users/${userTokenEId.userId}`,
+    {
+      method: "GET",
+      headers: { ...header, Authorization: `Bearer ${userTokenEId.userToken}` },
+    }
+  );
+  const userInfo = await userInfoRaw.json();
+  console.log(userInfo);
+
+  return userInfo.email;
+}
+
+async function ajustarNomeDeUsuario() {
+  const isUserLogado = await verificarSeUsuarioEstaLogado();
+
+  if (isUserLogado) {
     const userTokenEId = await pegarTokenEId();
-    if(userTokenEId === null){
-        return false;
+    const emailUser = await pegarEmailUser(userTokenEId);
+    const userNameP = document.querySelector("#user-name");
+    userNameP.innerHTML = emailUser;
+  }
+}
+
+function adicionarEventoCliqueLogo() {
+  const pokedexIcon = document.querySelector("#pokedex2000-logo");
+  pokedexIcon.addEventListener("click", () => {
+    window.location.href = "index.html";
+  });
+}
+
+async function pegarTodosPokemons() {
+  const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1000", {
+    headers: header,
+  });
+  const result = await response.json();
+  montarPokemons(result.results);
+}
+
+async function pegarPokemonDetalhes(nomePokemon) {
+  const response = await fetch(
+    `https://pokeapi.co/api/v2/pokemon/${nomePokemon}`,
+    {
+      headers: header,
     }
-
-    return true;
+  );
+  const result = await response.json();
+  return result;
 }
 
-async function pegarEmailUser(userTokenEId){
-    const userInfoRaw = await fetch(`http://localhost:3001/users/${userTokenEId.userId}`,{
-        method: 'GET', 
-        headers: {...header, 'Authorization': `Bearer ${userTokenEId.userToken}`}
-    });
-    const userInfo = await userInfoRaw.json();
-    console.log(userInfo);  
-
-    return userInfo.email;
+function adicionarPokemonLocalStorage(pokemon) {
+  localStorage.setItem("pokemon", pokemon);
 }
 
-async function ajustarNomeDeUsuario(){
-    const isUserLogado = await verificarSeUsuarioEstaLogado();
-
-    if(isUserLogado){
-        const userTokenEId = await pegarTokenEId();
-        const emailUser = await pegarEmailUser(userTokenEId);
-        const userNameP = document.querySelector("#user-name");
-        userNameP.innerHTML = emailUser;
-    }
-}
-
-function adicionarEventoCliqueLogo(){
-    const pokedexIcon = document.querySelector("#pokedex2000-logo");
-    pokedexIcon.addEventListener("click",()=>{
-        window.location.href = "index.html"
-    });
-}
-
-async function pegarTodosPokemons(){
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1000",{
-        headers: header
-    });
-    const result = await response.json();
-    montarPokemons(result.results);
-}
-
-async function pegarPokemonDetalhes(nomePokemon){
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${nomePokemon}`,{
-        headers: header
-    });
-    const result = await response.json();
-    return result;
-}
-
-function adicionarPokemonLocalStorage(pokemon){
-    localStorage.setItem("pokemon", pokemon);
-}
-
-function mudarParaPaginaPokemon(){
-    window.location.href = "./html/pokemon.html";
+function mudarParaPaginaPokemon() {
+  window.location.href = "./html/pokemon.html";
 }
 
 async function montarPokemons(listaPokemon) {
-    const ulPokemons = document.querySelector("ul");
+  const ulPokemons = document.querySelector("ul");
 
-    for (let pokemon of listaPokemon) {
-        const pokemonDetalhes = await pegarPokemonDetalhes(pokemon.name);
-        const pokemonName = capitalizarPrimeiraLetra(pokemon.name);
-        const liTemplate = `
-            <li class="li-${pokemonDetalhes.name}" style="background-color: ${colors[pokemonDetalhes.types[0].type.name]}">
+  for (let pokemon of listaPokemon) {
+    const pokemonDetalhes = await pegarPokemonDetalhes(pokemon.name);
+    const pokemonName = capitalizarPrimeiraLetra(pokemon.name);
+    const liTemplate = `
+            <li class="li-${pokemonDetalhes.name}" style="background-color: ${
+      colors[pokemonDetalhes.types[0].type.name]
+    }">
                 <div>
-                    <img src="${pokemonDetalhes.sprites.front_default}" alt="${pokemonName}">
+                    <img src="${
+                      pokemonDetalhes.sprites.front_default
+                    }" alt="${pokemonName}">
                 </div>
                 <p>${pokemonName}</p>
                 <svg class="icon-add" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16" style="margin-right: 16px;">
@@ -112,47 +121,45 @@ async function montarPokemons(listaPokemon) {
                 </svg>
             </li>
         `;
-        ulPokemons.insertAdjacentHTML("beforeend", liTemplate);
-        adicionarEventoCliquePokemon(pokemonDetalhes);
-    }
+    ulPokemons.insertAdjacentHTML("beforeend", liTemplate);
+    adicionarEventoCliquePokemon(pokemonDetalhes);
+  }
 }
 
-function adicionarEventoCliquePokemon(pokemonDetalhes){
-    const ulPokemon = document.querySelector(`.li-${pokemonDetalhes.name}`);
-    ulPokemon.addEventListener("click",()=>{
-            adicionarPokemonLocalStorage(JSON.stringify(pokemonDetalhes));
-            mudarParaPaginaPokemon();
-    });
+function adicionarEventoCliquePokemon(pokemonDetalhes) {
+  const ulPokemon = document.querySelector(`.li-${pokemonDetalhes.name}`);
+  ulPokemon.addEventListener("click", () => {
+    adicionarPokemonLocalStorage(JSON.stringify(pokemonDetalhes));
+    mudarParaPaginaPokemon();
+  });
 }
 
-function capitalizarPrimeiraLetra(pokemonName){
-    let palavraPrimeiraLetraCapitalizada = pokemonName[0].toUpperCase() + pokemonName.slice(1)
-    return palavraPrimeiraLetraCapitalizada
+function capitalizarPrimeiraLetra(pokemonName) {
+  let palavraPrimeiraLetraCapitalizada =
+    pokemonName[0].toUpperCase() + pokemonName.slice(1);
+  return palavraPrimeiraLetraCapitalizada;
 }
 
+async function adicionarEventoCliqueDropdownEBtnSair() {
+  document.querySelector(".bi-person").addEventListener("click", function () {
+    this.parentElement.classList.toggle("active");
+  });
+  const btnSairConta = document.querySelector("#btn-sair-conta");
+  btnSairConta.addEventListener("click", function () {
+    localStorage.removeItem("userInfo");
+    window.location.href = "http://127.0.0.1:5500/html/login.html";
+  });
+  const isUserLogado = await verificarSeUsuarioEstaLogado();
 
-async function adicionarEventoCliqueDropdownEBtnSair(){
-   
-    document.getElementById("user-name").addEventListener("click", function() {
-        this.parentElement.classList.toggle('active');
-    });
-    const btnSairConta = document.querySelector("#btn-sair-conta");
-    btnSairConta.addEventListener("click", function() {
-        localStorage.removeItem("userInfo");
-        window.location.href = "http://127.0.0.1:5500/html/login.html";
-    })
-    const isUserLogado = await verificarSeUsuarioEstaLogado();
-
-    if(isUserLogado === false){
-        btnSairConta.innerHTML = "Logar";
-    }
-
+  if (isUserLogado === false) {
+    btnSairConta.innerHTML = "Logar";
+  }
 }
 
-async function pegarTokenEId(){
-    const userInfoRaw = localStorage.getItem("userInfo");
-    const userTokenEId = JSON.parse(userInfoRaw);
-    return userTokenEId;
+async function pegarTokenEId() {
+  const userInfoRaw = localStorage.getItem("userInfo");
+  const userTokenEId = JSON.parse(userInfoRaw);
+  return userTokenEId;
 }
 
 adicionarEventoCliqueDropdownEBtnSair();
