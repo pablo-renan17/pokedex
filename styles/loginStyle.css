@@ -1,126 +1,136 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Lato", Tahoma;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato", Tahoma;
 }
 
-:root{
-    --color-black: #202020;
-    --color-yellow: #f5f500;
-    --color-white: #ebebeb;
-    --color-grey: #c7c7c7;
-    --color-blue: #0000ff;
+:root {
+  --color-black: #202020;
+  --color-yellow: #f5f500;
+  --color-white: #ebebeb;
+  --color-grey: #c7c7c7;
+  --color-blue: #0000ff;
 }
 
-ul{
-    list-style: none;
+ul {
+  list-style: none;
 }
 
-.d-flex{
-    display: flex;
+.d-flex {
+  display: flex;
 }
 
-header{
-    background-color: var(--color-yellow);
-    height: 10vh;
-    justify-content: space-between;
-    align-items: center;
+header {
+  background-color: var(--color-yellow);
+  height: 10vh;
+  justify-content: space-between;
+  align-items: center;
 }
 
-header img:hover{
-    transform: scale(102%);
-    transition: 0.2s;
+header img:hover {
+  transform: scale(102%);
+  transition: 0.2s;
 }
 
-.icon-menu{
-    padding-left: 2%;
+.icon-menu {
+  padding-left: 2%;
 }
 
-.icon-user{
-    padding-right: 2%;
+.icon-user {
+  padding-right: 2%;
 }
 
-#pokedex2000-logo{
-    cursor: pointer;
-    height: 9vh;
-    padding-right: 5vh;
+.container-pokedex2000-logo {
+  width: 42vh;
 }
 
-main{
-    height: 90vh;
-    width: 100%;
-    background-color: var(--color-black);
-    justify-content: center;
-    align-items: center;
+#pokedex2000-logo {
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
 }
 
-section{
-    height: 50%;
-    width: 55vh;
-    background-color: var(--color-grey);
-    border: 2px solid var(--color-black);
-    border-radius: 16px;
-    margin: 2vh 2vh 2vh 2vh;
-    flex-wrap: wrap;
-    justify-content: center;
-    overflow: auto;
+main {
+  height: 90vh;
+  width: 100%;
+  background-color: var(--color-black);
+  justify-content: center;
+  align-items: center;
 }
 
-section h1{
-    margin-top: 24px;
+section {
+  height: 50%;
+  width: 55vh;
+  background-color: var(--color-grey);
+  border: 2px solid var(--color-black);
+  border-radius: 16px;
+  margin: 2vh 2vh 2vh 2vh;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: auto;
 }
 
-form{
-    height: 60%;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 0 10% 0 10%;
-    gap: 5%;
+section h1 {
+  margin-top: 24px;
 }
 
-form button{
-    margin-top: 5%;
-    padding: 2%;
-    border-radius: 8px;
-    border: none;
+form {
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 10% 0 10%;
+  gap: 5%;
+}
+
+form button {
+  margin-top: 5%;
+  padding: 2%;
+  border-radius: 8px;
+  border: none;
 }
 
 form input {
-    padding: 2%;
-    border-radius: 8px;
-    border: none;
+  padding: 2%;
+  border-radius: 8px;
+  border: none;
 }
 
-form button:hover{
-    transform: scale(101%);
-    transition: 0.2s;
-    box-shadow: 5px 5px 25px var(--color-black);
-    cursor: pointer;
-    text-decoration: underline;
+form button:hover {
+  transform: scale(101%);
+  transition: 0.2s;
+  box-shadow: 5px 5px 25px var(--color-black);
+  cursor: pointer;
+  text-decoration: underline;
 }
 
-form button:active{
-    transform: scale(98%);
-    transition: 0.2s;
-    box-shadow: 5px 5px 10px var(--color-black);
+form button:active {
+  transform: scale(98%);
+  transition: 0.2s;
+  box-shadow: 5px 5px 10px var(--color-black);
 }
 
-footer{
-    display: flex;
-    flex-direction: column;
+footer {
+  display: flex;
+  flex-direction: column;
 }
 
-footer a{
-    display: flex;
-    justify-content: center;
-    color: var(--color-blue);
+footer a {
+  display: flex;
+  justify-content: center;
+  color: var(--color-blue);
 }
 
-footer a:hover{
-    cursor: pointer;
-    text-decoration: underline;
+footer a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media (max-width: 390px) {
+  .container-pokedex2000-logo {
+    width: 50%;
+  }
 }

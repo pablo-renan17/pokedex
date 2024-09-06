@@ -45,10 +45,14 @@ header img:hover {
   padding-right: 2%;
 }
 
+.container-pokedex2000-logo {
+  width: 35vh;
+}
+
 #pokedex2000-logo {
   cursor: pointer;
-  height: 9vh;
-  padding-right: 5vh;
+  height: 100%;
+  width: 100%;
 }
 
 main {
@@ -174,4 +178,14 @@ footer a:hover {
   position: absolute;
   right: 16px;
   top: 16px;
+}
+
+@media (max-width: 390px) {
+  #user-name {
+    display: none;
+  }
+
+  .container-pokedex2000-logo {
+    width: 50%;
+  }
 }

@@ -334,7 +334,7 @@ function capitalizarPrimeiraLetra(pokemonName) {
 }
 
 async function adicionarEventoCliqueDropdownEBtnSair() {
-  document.getElementById("user-name").addEventListener("click", function () {
+  document.querySelector(".bi-person").addEventListener("click", function () {
     this.parentElement.classList.toggle("active");
   });
   const btnSairConta = document.querySelector("#btn-sair-conta");
