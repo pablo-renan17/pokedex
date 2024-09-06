@@ -60,7 +60,7 @@ main {
 }
 
 section {
-  height: 50%;
+  height: 65%;
   width: 55vh;
   background-color: var(--color-grey);
   border: 2px solid var(--color-black);
