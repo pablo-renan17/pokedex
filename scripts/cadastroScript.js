@@ -16,8 +16,6 @@ function pegarEmailSenhaConfirmarEmailInput() {
   const emailConfirmar = inputs[1].value;
   const senhaUser = inputs[2].value;
 
-  console.log(emailUser, emailConfirmar, senhaUser);
-
   return { emailUser, emailConfirmar, senhaUser };
 }
 

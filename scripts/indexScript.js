@@ -49,7 +49,6 @@ async function pegarEmailUser(userTokenEId) {
     }
   );
   const userInfo = await userInfoRaw.json();
-  console.log(userInfo);
 
   return userInfo.email;
 }

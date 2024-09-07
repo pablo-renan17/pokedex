@@ -163,11 +163,8 @@ async function verificarSeUsuarioTemPokedex(pokemonName) {
   );
   const userPokedex = await userPokedexRaw.json();
   if (userPokedex.length < 1) {
-    console.log("Usuario não tem pokemons cadastrados");
     adicionarPokemonPokedexPost(userTokenEId.userId, pokemonName);
   } else {
-    console.log("Usuario possui pokemons cadastrados");
-
     const { pokemonsAtualUsuario, userPrimaryKey } =
       await criarArrayDeNovoPokemonsEPegarPrimaryKey(
         userTokenEId.userId,
@@ -188,7 +185,6 @@ async function criarArrayDeNovoPokemonsEPegarPrimaryKey(userId, pokemonName) {
       await pegarPokemonsUsuarioEPrimaryKey(userId);
     pokemonsAtualUsuario = JSON.parse(pokemonsAtualUsuario);
     if (pokemonsAtualUsuario.includes(pokemonName)) {
-      console.log("Usuario ja tem esse pokemon!");
       return { pokemonsAtualUsuario, userPrimaryKey };
     }
 
@@ -210,7 +206,6 @@ async function adicionarPokemonPokedexPost(userId, pokemonName) {
     }),
   });
   const adiconarPokedex = await adicionarPokedexRaw.json();
-  console.log(adiconarPokedex);
   window.location.reload();
 }
 
@@ -231,7 +226,6 @@ async function adicionarPokemonPokedexPut(
     }
   );
   const result = await response.json();
-  console.log(result);
   window.location.reload();
 }
 

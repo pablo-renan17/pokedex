@@ -44,11 +44,9 @@ async function verificarSeUsuarioExiste(emailUser, senhaUser) {
     }),
   });
   if (verificarUsuario.status === 400) {
-    console.log("Erro");
     return;
   } else {
     const result = await verificarUsuario.json();
-    console.log(result);
     adicionarTokenEIdLocalStorage(result.accessToken, result.user.id);
     redirecionarParaPokedex();
   }
