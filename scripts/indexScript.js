@@ -27,7 +27,7 @@ const colors = {
 function adicionarEventoCliqueLogoMenu() {
   const menuIcon = document.querySelector("#icon-menu-svg");
   menuIcon.addEventListener("click", () => {
-    window.location.href = "http://127.0.0.1:5500/html/pokedexUser.html";
+    window.location.href = "/html/pokedexUser.html";
   });
 }
 
@@ -72,7 +72,7 @@ function adicionarEventoCliqueLogo() {
 }
 
 async function pegarTodosPokemons() {
-  const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1000", {
+  const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=500", {
     headers: header,
   });
   const result = await response.json();
@@ -146,7 +146,7 @@ async function adicionarEventoCliqueDropdownEBtnSair() {
   const btnSairConta = document.querySelector("#btn-sair-conta");
   btnSairConta.addEventListener("click", function () {
     localStorage.removeItem("userInfo");
-    window.location.href = "http://127.0.0.1:5500/html/login.html";
+    window.location.href = "/html/login.html";
   });
   const isUserLogado = await verificarSeUsuarioEstaLogado();
 
